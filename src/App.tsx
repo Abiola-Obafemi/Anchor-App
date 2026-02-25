@@ -474,9 +474,9 @@ export default function App() {
           </div>
         </div>
 
-        {/* AdMob Banner Placeholder (468x60) */}
+        {/* AdMob Banner Placeholder (320x50) */}
         <div className="w-full flex justify-center pt-2">
-          <div className="w-[468px] h-[60px] max-w-full bg-white/5 border border-white/5 flex items-center justify-center rounded-lg">
+          <div className="w-[320px] h-[50px] max-w-full bg-white/5 border border-white/5 flex items-center justify-center rounded-lg">
             <span className="text-[8px] text-white/10 uppercase tracking-widest font-bold">Advertisement</span>
           </div>
         </div>
