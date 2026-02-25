@@ -222,103 +222,105 @@ export default function App() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center w-full">
         <AnimatePresence mode="wait">
-          {status === 'idle' && !isSelectingType && (
+          {status === 'idle' && (
             <motion.div
-              key="idle"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="text-center space-y-12"
+              key="idle-container"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="w-full flex flex-col items-center"
             >
-              <div className="space-y-4">
-                <div className="text-8xl font-mono font-light tracking-tighter timer-glow">
-                  {formatTime(duration)}
-                </div>
-                <p className="text-white/40 text-sm uppercase tracking-widest font-medium">
-                  Ready to focus?
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center space-y-6">
-                <button
-                  onClick={() => setIsSelectingType(true)}
-                  className="group relative flex items-center justify-center w-24 h-24 rounded-full bg-white text-black hover:scale-105 transition-transform"
-                >
-                  <Play size={32} fill="currentColor" />
-                  <div className="absolute inset-0 rounded-full border-4 border-white/20 animate-ping" />
-                </button>
-                
-                <button
+              {/* Common Clock Display for all Idle states */}
+              <div className="text-center space-y-4 mb-12">
+                <button 
                   onClick={() => setShowSettings(!showSettings)}
-                  className="flex items-center space-x-2 text-white/40 hover:text-white transition-colors"
+                  className="text-8xl font-mono font-light tracking-tighter timer-glow hover:opacity-80 transition-opacity"
                 >
-                  <Music size={18} />
-                  <span className="text-xs uppercase tracking-widest font-bold">Quick Adjust</span>
+                  {formatTime(duration)}
                 </button>
-
                 {showSettings && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="w-full max-w-[200px] space-y-4"
+                    className="flex flex-col items-center space-y-2"
                   >
-                    <div className="space-y-2">
-                      <input
-                        type="number"
-                        min="1"
-                        max="120"
-                        value={duration / 60}
-                        onChange={handleDurationChange}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-center font-mono text-xl focus:outline-none focus:border-white/30"
-                      />
-                      <p className="text-[10px] text-white/30 uppercase tracking-widest">Minutes</p>
-                    </div>
+                    <input
+                      type="number"
+                      min="1"
+                      max="120"
+                      value={duration / 60}
+                      onChange={handleDurationChange}
+                      className="w-24 bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-center font-mono text-xl focus:outline-none focus:border-white/30"
+                    />
+                    <p className="text-[10px] text-white/30 uppercase tracking-widest">Minutes</p>
                   </motion.div>
                 )}
-              </div>
-            </motion.div>
-          )}
-
-          {status === 'idle' && isSelectingType && (
-            <motion.div
-              key="selecting"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="w-full max-w-md space-y-8"
-            >
-              <div className="text-center space-y-2">
-                <h2 className="text-2xl font-bold uppercase tracking-widest">Deep Dive</h2>
-                <p className="text-white/40 text-xs uppercase tracking-widest">Choose your focus type</p>
+                {!showSettings && (
+                  <p className="text-white/40 text-sm uppercase tracking-widest font-medium">
+                    {isSelectingType ? 'Choose Focus Type' : 'Ready to focus?'}
+                  </p>
+                )}
               </div>
 
-              <div className="grid grid-cols-1 gap-3">
-                {stats.customSessionTypes.map((type) => (
+              {!isSelectingType ? (
+                <motion.div
+                  key="idle-main"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-col items-center space-y-6"
+                >
                   <button
-                    key={type}
-                    onClick={() => {
-                      setSessionType(type);
-                      startSession();
-                    }}
-                    className={cn(
-                      "p-6 rounded-2xl border transition-all text-left flex items-center justify-between group",
-                      sessionType === type 
-                        ? "bg-white text-black border-white" 
-                        : "bg-white/5 text-white/60 border-white/10 hover:border-white/30"
-                    )}
+                    onClick={() => setIsSelectingType(true)}
+                    className="group relative flex items-center justify-center w-24 h-24 rounded-full bg-white text-black hover:scale-105 transition-transform"
                   >
-                    <span className="text-sm font-bold uppercase tracking-widest">{type}</span>
-                    <Play size={16} className={cn(sessionType === type ? "text-black" : "text-white/20 group-hover:text-white/60")} />
+                    <Play size={32} fill="currentColor" />
+                    <div className="absolute inset-0 rounded-full border-4 border-white/20 animate-ping" />
                   </button>
-                ))}
-              </div>
+                  
+                  <button
+                    onClick={() => setShowSettings(!showSettings)}
+                    className="flex items-center space-x-2 text-white/40 hover:text-white transition-colors"
+                  >
+                    <Music size={18} />
+                    <span className="text-xs uppercase tracking-widest font-bold">Adjust Time</span>
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="selecting-type"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="w-full max-w-md space-y-6"
+                >
+                  <div className="grid grid-cols-1 gap-3 max-h-[40vh] overflow-y-auto no-scrollbar p-1">
+                    {stats.customSessionTypes.map((type) => (
+                      <button
+                        key={type}
+                        onClick={() => {
+                          setSessionType(type);
+                          startSession();
+                        }}
+                        className={cn(
+                          "p-4 rounded-2xl border transition-all text-left flex items-center justify-between group",
+                          sessionType === type 
+                            ? "bg-white text-black border-white" 
+                            : "bg-white/5 text-white/60 border-white/10 hover:border-white/30"
+                        )}
+                      >
+                        <span className="text-sm font-bold uppercase tracking-widest">{type}</span>
+                        <Play size={16} className={cn(sessionType === type ? "text-black" : "text-white/20 group-hover:text-white/60")} />
+                      </button>
+                    ))}
+                  </div>
 
-              <button
-                onClick={() => setIsSelectingType(false)}
-                className="w-full py-4 text-white/40 text-xs uppercase tracking-widest font-bold hover:text-white transition-colors"
-              >
-                Back to Timer
-              </button>
+                  <button
+                    onClick={() => setIsSelectingType(false)}
+                    className="w-full py-2 text-white/40 text-xs uppercase tracking-widest font-bold hover:text-white transition-colors"
+                  >
+                    Back
+                  </button>
+                </motion.div>
+              )}
             </motion.div>
           )}
 
@@ -456,12 +458,19 @@ export default function App() {
       />
 
       {/* Footer Info */}
-      <div className="flex flex-col items-center space-y-2">
-        <div className="text-[10px] text-white/20 uppercase tracking-[0.3em] font-medium">
-          Discipline is Freedom
+      <div className="flex flex-col items-center space-y-4 w-full">
+        <div className="flex flex-col items-center space-y-2">
+          <div className="text-[10px] text-white/20 uppercase tracking-[0.3em] font-medium">
+            Discipline is Freedom
+          </div>
+          <div className="text-[8px] text-white/10 uppercase tracking-[0.2em] font-bold">
+            made by ABØ Studios
+          </div>
         </div>
-        <div className="text-[8px] text-white/10 uppercase tracking-[0.2em] font-bold">
-          made by ABØ Studios
+
+        {/* AdMob Banner Placeholder */}
+        <div className="w-full h-[50px] bg-white/5 border-t border-white/5 flex items-center justify-center">
+          <span className="text-[8px] text-white/10 uppercase tracking-widest font-bold">Advertisement</span>
         </div>
       </div>
     </div>
