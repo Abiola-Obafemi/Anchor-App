@@ -5,7 +5,8 @@
 
 import React, { useState, useEffect, useCallback, useRef, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Anchor, Play, X, Settings2, CheckCircle2, AlertTriangle, Music, Volume2, VolumeX } from 'lucide-react';
+import { Play, X, Settings2, CheckCircle2, AlertTriangle, Music, Volume2, VolumeX } from 'lucide-react';
+import { Logo } from './components/Logo';
 import { useStats, getRank } from './hooks/useStats';
 import { useAnchorDetection } from './hooks/useAnchorDetection';
 import { useSoundscape } from './hooks/useSoundscape';
@@ -184,7 +185,7 @@ export default function App() {
       <div className="w-full space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Anchor className="text-white" size={20} />
+            <Logo className="text-white" size={24} />
             <h1 className="text-sm font-bold tracking-[0.2em] uppercase">Anchor</h1>
           </div>
           <button 
@@ -213,7 +214,7 @@ export default function App() {
             exit={{ opacity: 0, scale: 0.9 }}
             className="absolute top-32 left-1/2 -translate-x-1/2 z-50 bg-white text-black px-6 py-3 rounded-full shadow-2xl flex items-center space-x-3"
           >
-            <Anchor size={16} />
+            <Logo size={20} className="text-black" />
             <span className="text-xs font-bold uppercase tracking-widest">Rank Up: {currentRank.name}</span>
           </motion.div>
         )}
@@ -230,6 +231,11 @@ export default function App() {
               exit={{ opacity: 0 }}
               className="w-full flex flex-col items-center"
             >
+              {/* Large Logo for Idle State */}
+              <div className="flex justify-center mb-4">
+                <Logo size={80} className="text-white/20" />
+              </div>
+
               {/* Common Clock Display for all Idle states */}
               <div className="text-center space-y-4 mb-12">
                 <button 
@@ -468,9 +474,11 @@ export default function App() {
           </div>
         </div>
 
-        {/* AdMob Banner Placeholder */}
-        <div className="w-full h-[50px] bg-white/5 border-t border-white/5 flex items-center justify-center">
-          <span className="text-[8px] text-white/10 uppercase tracking-widest font-bold">Advertisement</span>
+        {/* AdMob Banner Placeholder (468x60) */}
+        <div className="w-full flex justify-center pt-2">
+          <div className="w-[468px] h-[60px] max-w-full bg-white/5 border border-white/5 flex items-center justify-center rounded-lg">
+            <span className="text-[8px] text-white/10 uppercase tracking-widest font-bold">Advertisement</span>
+          </div>
         </div>
       </div>
     </div>

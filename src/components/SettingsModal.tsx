@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Volume2, Target, History, Music, Info, Anchor, BarChart3, ShieldAlert } from 'lucide-react';
+import { X, Volume2, Target, History, Music, Info, BarChart3, ShieldAlert } from 'lucide-react';
+import { Logo } from './Logo';
 import { UserStats } from '../types';
 import { HistoryView } from './HistoryView';
 import { StatsDashboard } from './StatsDashboard';
@@ -55,7 +56,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             <TabButton active={activeTab === 'goals'} onClick={() => setActiveTab('goals')} icon={<Target size={16} />} label="Goals" />
             <TabButton active={activeTab === 'stats'} onClick={() => setActiveTab('stats')} icon={<BarChart3 size={16} />} label="Stats" />
             <TabButton active={activeTab === 'sounds'} onClick={() => setActiveTab('sounds')} icon={<Music size={16} />} label="Sounds" />
-            <TabButton active={activeTab === 'types'} onClick={() => setActiveTab('types')} icon={<Anchor size={16} />} label="Types" />
+            <TabButton active={activeTab === 'types'} onClick={() => setActiveTab('types')} icon={<Logo size={16} />} label="Types" />
             <TabButton active={activeTab === 'history'} onClick={() => setActiveTab('history')} icon={<History size={16} />} label="History" />
           </div>
 
@@ -183,10 +184,36 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             )}
           </div>
 
-          <div className="p-8 border-t border-white/5 text-center space-y-4">
-            <div className="flex items-center justify-center space-x-2 text-white/20">
-              <Info size={14} />
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold">made by ABØ Studios</span>
+          <div className="p-8 border-t border-white/5 text-center space-y-6">
+            <div className="grid grid-cols-2 gap-4">
+              <button 
+                onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({
+                      title: 'Anchor',
+                      text: 'Check out Anchor - The most disciplined focus timer.',
+                      url: window.location.href,
+                    });
+                  }
+                }}
+                className="flex items-center justify-center space-x-2 p-3 rounded-xl bg-white/5 text-white/60 hover:text-white transition-colors"
+              >
+                <span className="text-[10px] uppercase tracking-widest font-bold">Share App</span>
+              </button>
+              <button 
+                className="flex items-center justify-center space-x-2 p-3 rounded-xl bg-white/5 text-white/60 hover:text-white transition-colors"
+              >
+                <span className="text-[10px] uppercase tracking-widest font-bold">Rate App</span>
+              </button>
+            </div>
+            <div className="flex flex-col items-center space-y-4">
+              <div className="flex items-center justify-center space-x-2 text-white/20">
+                <Info size={14} />
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold">made by ABØ Studios</span>
+              </div>
+              <button className="text-[8px] text-white/10 uppercase tracking-widest hover:text-white/30 transition-colors">
+                Privacy Policy
+              </button>
             </div>
           </div>
         </motion.div>
