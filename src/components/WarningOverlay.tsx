@@ -13,7 +13,7 @@ export const WarningOverlay: React.FC<WarningOverlayProps> = ({ countdown, onCan
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 bg-red-600 flex flex-col items-center justify-center p-6 text-white"
+      className="fixed inset-0 z-50 bg-red-600 flex flex-col items-center justify-center p-6 pb-[80px] text-white"
     >
       <motion.div
         initial={{ scale: 0.8 }}

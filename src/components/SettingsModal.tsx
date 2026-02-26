@@ -60,7 +60,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             <TabButton active={activeTab === 'history'} onClick={() => setActiveTab('history')} icon={<History size={16} />} label="History" />
           </div>
 
-          <div className="flex-1 overflow-y-auto p-6 space-y-8">
+          <div className="flex-1 overflow-y-auto p-6 pb-[100px] space-y-8">
             {activeTab === 'goals' && (
               <div className="space-y-8">
                 <div className="space-y-4">
@@ -209,7 +209,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             <div className="flex flex-col items-center space-y-4">
               <div className="flex items-center justify-center space-x-2 text-white/20">
                 <Info size={14} />
-                <span className="text-[10px] uppercase tracking-[0.3em] font-bold">made by ABØ Studios</span>
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold">made by ABØ Studios | 2026 Anchor</span>
               </div>
               <button className="text-[8px] text-white/10 uppercase tracking-widest hover:text-white/30 transition-colors">
                 Privacy Policy

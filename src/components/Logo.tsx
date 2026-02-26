@@ -37,7 +37,7 @@ export const Logo: React.FC<LogoProps> = ({ className, size = 24 }) => {
         stroke="currentColor" 
         strokeWidth="8" 
         strokeLinecap="round" 
-        strokeJoin="round"
+        strokeLinejoin="round"
       />
       
       {/* Anchor Crossbar */}

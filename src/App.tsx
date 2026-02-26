@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useCallback, useRef, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Play, X, Settings2, CheckCircle2, AlertTriangle, Music, Volume2, VolumeX } from 'lucide-react';
+import { Play, X, Settings2, CheckCircle2, AlertTriangle, Music, Volume2, VolumeX, Clock } from 'lucide-react';
 import { Logo } from './components/Logo';
 import { useStats, getRank } from './hooks/useStats';
 import { useAnchorDetection } from './hooks/useAnchorDetection';
@@ -175,14 +175,14 @@ export default function App() {
 
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-between py-12 px-6 relative overflow-hidden">
+    <div className="h-[100dvh] flex flex-col items-center justify-between pt-4 pb-[85px] px-6 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 -z-10 opacity-20">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full blur-[100px]" />
       </div>
 
       {/* Header */}
-      <div className="w-full space-y-6">
+      <div className="w-full space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Logo className="text-white" size={24} />
@@ -232,15 +232,15 @@ export default function App() {
               className="w-full flex flex-col items-center"
             >
               {/* Large Logo for Idle State */}
-              <div className="flex justify-center mb-4">
-                <Logo size={80} className="text-white/20" />
+              <div className="flex justify-center mb-0.5">
+                <Logo size={32} className="text-white/20" />
               </div>
 
               {/* Common Clock Display for all Idle states */}
-              <div className="text-center space-y-4 mb-12">
+              <div className="text-center space-y-0.5 mb-1">
                 <button 
                   onClick={() => setShowSettings(!showSettings)}
-                  className="text-8xl font-mono font-light tracking-tighter timer-glow hover:opacity-80 transition-opacity"
+                  className="text-6xl font-mono font-light tracking-tighter timer-glow hover:opacity-80 transition-opacity"
                 >
                   {formatTime(duration)}
                 </button>
@@ -273,22 +273,22 @@ export default function App() {
                   key="idle-main"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center space-y-6"
+                  className="flex flex-col items-center space-y-4"
                 >
                   <button
                     onClick={() => setIsSelectingType(true)}
-                    className="group relative flex items-center justify-center w-24 h-24 rounded-full bg-white text-black hover:scale-105 transition-transform"
+                    className="group relative flex items-center justify-center w-16 h-16 rounded-full bg-white text-black hover:scale-105 transition-transform"
                   >
-                    <Play size={32} fill="currentColor" />
+                    <Play size={24} fill="currentColor" />
                     <div className="absolute inset-0 rounded-full border-4 border-white/20 animate-ping" />
                   </button>
                   
                   <button
-                    onClick={() => setShowSettings(!showSettings)}
+                    onClick={() => setShowSettings(true)}
                     className="flex items-center space-x-2 text-white/40 hover:text-white transition-colors"
                   >
-                    <Music size={18} />
-                    <span className="text-xs uppercase tracking-widest font-bold">Adjust Time</span>
+                    <Clock size={14} />
+                    <span className="text-[10px] uppercase tracking-widest font-bold">Adjust Time</span>
                   </button>
                 </motion.div>
               ) : (
@@ -464,21 +464,19 @@ export default function App() {
       />
 
       {/* Footer Info */}
-      <div className="flex flex-col items-center space-y-4 w-full">
-        <div className="flex flex-col items-center space-y-2">
-          <div className="text-[10px] text-white/20 uppercase tracking-[0.3em] font-medium">
-            Discipline is Freedom
-          </div>
-          <div className="text-[8px] text-white/10 uppercase tracking-[0.2em] font-bold">
-            made by ABØ Studios
-          </div>
+      <div className="flex flex-col items-center space-y-1 w-full mb-6">
+        <div className="text-[9px] text-white/20 uppercase tracking-[0.3em] font-medium">
+          Discipline is Freedom
         </div>
+        <div className="text-[7px] text-white/10 uppercase tracking-[0.2em] font-bold">
+          made by ABØ Studios | 2026 Anchor
+        </div>
+      </div>
 
-        {/* AdMob Banner Placeholder (320x50) */}
-        <div className="w-full flex justify-center pt-2">
-          <div className="w-[320px] h-[50px] max-w-full bg-white/5 border border-white/5 flex items-center justify-center rounded-lg">
-            <span className="text-[8px] text-white/10 uppercase tracking-widest font-bold">Advertisement</span>
-          </div>
+      {/* Global AdMob Banner (320x50) */}
+      <div className="fixed bottom-0 left-0 right-0 z-[110] bg-black/80 backdrop-blur-sm border-t border-white/5 py-2 flex justify-center">
+        <div className="w-[320px] h-[50px] max-w-full bg-white/5 border border-white/5 flex items-center justify-center rounded-lg">
+          <span className="text-[8px] text-white/10 uppercase tracking-widest font-bold">Advertisement</span>
         </div>
       </div>
     </div>
