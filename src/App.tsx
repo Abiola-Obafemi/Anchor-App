@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useCallback, useRef, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Play, X, Settings2, CheckCircle2, AlertTriangle, Music, Volume2, VolumeX, Clock } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 import { Logo } from './components/Logo';
 import { useStats, getRank } from './hooks/useStats';
 import { useAnchorDetection } from './hooks/useAnchorDetection';
@@ -479,6 +480,9 @@ export default function App() {
           <span className="text-[8px] text-white/10 uppercase tracking-widest font-bold">Advertisement</span>
         </div>
       </div>
+      
+      {/* Vercel Web Analytics */}
+      <Analytics />
     </div>
   );
 }
